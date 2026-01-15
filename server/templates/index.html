@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MailSense API</title>
+    <title>MailSense API Status</title>
     <style>
         body {
-            background-color: #0f172a; 
+            background-color: #0f172a;
             color: #e2e8f0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -16,59 +16,131 @@
             margin: 0;
         }
         .card {
-            background-color: #1e2d3b;
-            padding: 2rem;
+            background-color: #1e293b;
+            padding: 2.5rem;
             border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             text-align: center;
             max-width: 400px;
+            width: 90%;
             border: 1px solid #334155;
         }
-        .status {
-            color: #4a54de; 
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
             font-weight: bold;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 1rem;
-            display: inline-block;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+    
+        .status-checking {
+            background: rgba(234, 179, 8, 0.2);
+            color: #facc15; 
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+        .status-online {
             background: rgba(74, 222, 128, 0.1);
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
+            color: #4ade80; 
+            border: 1px solid rgba(74, 222, 128, 0.2);
         }
-        h1 { margin: 0 0 1rem 0; font-size: 2rem; }
+        .status-offline {
+            background: rgba(248, 113, 113, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(248, 113, 113, 0.2);
+        }
+
+       
+        .dot {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-online .dot {
+            background-color: #4ade80;
+            box-shadow: 0 0 10px #4ade80;
+            animation: pulse 2s infinite;
+        }
+        .status-checking .dot { background-color: #facc15; }
+        .status-offline .dot { background-color: #f87171; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+
+        h1 { margin: 0 0 0.5rem 0; font-size: 2rem; }
+        .subtitle { color: #64748b; margin-bottom: 2rem; font-size: 0.9rem; }
         p { color: #94a3b8; line-height: 1.6; margin-bottom: 2rem; }
-        .btn {
-            background-color: #3b82f6;
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-        .btn:hover { background-color: #2563eb; }
-        .tech-stack {
-            margin-top: 2rem;
-            font-size: 0.8rem;
+        
+        .ping-info {
+            font-family: monospace;
             color: #64748b;
+            font-size: 0.8rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <span class="status">● API Online</span>
+        <div id="status-badge" class="status-badge status-checking">
+            <span class="dot"></span>
+            <span id="status-text">Verificando...</span>
+        </div>
         <h1>MailSense API</h1>
+        <div class="subtitle">Cloud AI Backend</div>
         <p>
-            Este é o backend inteligente que processa e categoriza emails usando a 
-            potência do Google Gemini AI.
+            Sistema operacional e aguardando requisições. 
+            O processamento de linguagem natural está ativo.
         </p>
-        
-        <a href="Sem frontend" class="btn" target="_blank">Acessar Aplicação</a>
-
-        <div class="tech-stack">
-            Powered by Python, Flask & Gemini
+        <div id="ping-display" class="ping-info">
+            Latência: -- ms
         </div>
     </div>
+    <script>
+        async function checkHealth() {
+            const badge = document.getElementById('status-badge');
+            const text = document.getElementById('status-text');
+            const pingDisplay = document.getElementById('ping-display');
+            
+            const start = Date.now();
+
+            try {
+                // Tenta bater na sua rota /health
+                const response = await fetch('/health');
+                
+                const end = Date.now();
+                const latency = end - start;
+
+                if (response.ok) {
+                    // SUCESSO
+                    badge.className = 'status-badge status-online';
+                    text.innerText = 'Sistema Online';
+                    pingDisplay.innerText = `Latência: ${latency}ms`;
+                } else {
+                    // ERRO 400/500
+                    throw new Error('Status não é OK');
+                }
+            } catch (error) {
+                // ERRO DE CONEXÃO
+                console.error(error);
+                badge.className = 'status-badge status-offline';
+                text.innerText = 'Serviço Indisponível';
+                pingDisplay.innerText = 'Falha na conexão';
+            }
+        }
+
+        checkHealth();
+        setInterval(checkHealth, 30000);
+    </script>
 </body>
 </html>
