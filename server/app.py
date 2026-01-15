@@ -17,3 +17,7 @@ def extract_text_from_pdf(file):
     except Exception as e:
         print(f"Erro ao ler PDF: {e}")
         return ""
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "online"}), 200
