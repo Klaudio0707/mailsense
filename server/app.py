@@ -21,3 +21,7 @@ def extract_text_from_pdf(file):
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({"status": "online"}), 200
+
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    text_content = ""
