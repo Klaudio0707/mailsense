@@ -1,101 +1,85 @@
-# 📧 MailSense - Classificador Inteligente de Emails
+# 📧 MailSense - Inteligência Artificial para Triagem de Emails
 
-> Uma solução Fullstack que utiliza Inteligência Artificial Generativa para triagem, classificação e resposta automática de emails corporativos e financeiros.
+![Status](https://img.shields.io/badge/Status-Concluído-success)
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![React](https://img.shields.io/badge/React-Vite-61DAFB)
+![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-8E75B2)
 
-![Status do Projeto](https://img.shields.io/badge/Status-Concluído-green) ![React](https://img.shields.io/badge/Frontend-React%20%7C%20TypeScript-blue) ![Python](https://img.shields.io/badge/Backend-Python%20%7C%20Flask-yellow)
+> Solução desenvolvida para o Desafio de Automação e IA (AutoU).
 
-## Deploy
-///
-
-## 🎯 Sobre o Projeto
-
-O **MailSense** resolve o problema da sobrecarga operacional em equipes de suporte e financeiro. O sistema analisa o conteúdo de emails (texto ou arquivos PDF/TXT), identifica o contexto e classifica a mensagem em:
-
-* **🟢 Produtivo:** Solicitações legítimas (boletos, dúvidas, suporte).
-* **🔴 Improdutivo:** Spam, promoções, avisos automáticos de sistema.
-
-Além de classificar, a IA gera automaticamente uma sugestão de resposta formal e empática, pronta para ser enviada ao cliente.
-
-## 🚀 Funcionalidades Principais
-
-* **IA Avançada (Google Gemma-27b):** Compreensão profunda de contexto e linguagem natural.
-* **Upload de Arquivos:** Suporte para leitura automática de anexos `.pdf` e `.txt`.
-* **Smart Filtering:** Identifica e descarta notificações automáticas (robôs) e spam.
-* **Resiliência:** Sistema de reconexão automática com o servidor (Cold Start Handling).
-* **UX Moderna:** Interface limpa, feedbacks visuais (Toasts) e design responsivo.
+O **MailSense** é uma aplicação web Full Stack que utiliza Inteligência Artificial Generativa (LLM) para automatizar a leitura, classificação e resposta de emails corporativos, otimizando o tempo de equipes operacionais.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🔗 Links do Projeto
 
-### Frontend
-* **React + Vite:** Performance e desenvolvimento rápido.
-* **TypeScript:** Tipagem estática para segurança do código.
-* **Sonner:** Notificações (Toasts) elegantes.
-* **Lucide React:** Ícones modernos e leves.
-* **Axios:** Comunicação com a API.
-
-### Backend
-* **Python + Flask:** Servidor leve e robusto.
-* **Google Generative AI SDK:** Integração com LLMs (Large Language Models).
-* **PyPDF2:** Processamento de arquivos PDF.
+- **🌐 Aplicação Online (Deploy):** [CLIQUE AQUI PARA ACESSAR](SEU_LINK_DO_RENDER_OU_VERCEL_AQUI)
+- **🎬 Vídeo de Demonstração:** [ASSISTIR NO YOUTUBE](SEU_LINK_DO_YOUTUBE_AQUI)
 
 ---
 
-## 💻 Como Executar o Projeto
+## 🚀 Funcionalidades
 
-Siga os passos abaixo para rodar a aplicação localmente.
+- **Classificação Inteligente:** Analisa o contexto semântico do email para categorizá-lo como:
+  - ✅ **Produtivo:** Requer ação (ex: solicitações, dúvidas, boletos).
+  - 🚫 **Improdutivo:** Descartável (ex: felicitações, spam, newsletters).
+- **Geração de Respostas:** Cria rascunhos de resposta formais e contextualizados automaticamente.
+- **Health Check Visual:** Monitoramento em tempo real da saúde da API e latência da nuvem.
+- **Interface Moderna:** Front-end reativo e amigável desenvolvido com React e Vite.
+
+---
+
+## 🛠️ Tecnologias e Decisões Técnicas
+
+Para este desafio, optei por uma arquitetura moderna focada em escalabilidade e precisão semântica.
+
+| Camada | Tecnologia | Motivo da Escolha |
+| :--- | :--- | :--- |
+| **Frontend** | React + Vite | Performance superior, componentização e feedback visual instantâneo para o usuário. |
+| **Backend** | Python (Flask) | Robustez e facilidade de integração com bibliotecas de IA. |
+| **Servidor** | Gunicorn | Servidor WSGI de produção para garantir estabilidade no deploy (ao contrário do servidor de desenvolvimento padrão). |
+| **IA / NLP** | **Google Gemini** | **Decisão Estratégica:** Ao invés de usar NLP tradicional (Stemming/Stopwords), optei por **LLMs**. Modelos generativos entendem *nuance* e *sarcasmo* melhor que contagem de palavras, garantindo maior acurácia na classificação. |
+| **Cloud** | Render | Hospedagem contínua com suporte a containers e SSL nativo. |
+
+### Destaque Técnico: Modo JSON e Segurança
+A integração com o Gemini utiliza o **JSON Mode** nativo e validação de esquema, garantindo que a saída da IA seja sempre estruturada e integrável ao Front-end, prevenindo erros de formatação comuns em LLMs.
+
+---
+
+## 📦 Como Rodar Localmente
+
+Siga os passos abaixo para executar o projeto na sua máquina.
 
 ### Pré-requisitos
-* Node.js instalado (v18+).
-* Python instalado (v3.9+).
-* Uma chave de API do Google AI Studio (Gemini).
+- Python 3.10+
+- Node.js e NPM
+- Uma API Key do Google Gemini
 
-### 1. Configurando o Backend (Servidor)
+### 1. Configuração do Backend
 
-1.  Abra o terminal na pasta `server`:
-    ```bash
-    cd server
-    ```
-2.  Crie um ambiente virtual (recomendado):
-    ```bash
-    python -m venv venv
-    # Windows:
-    venv\Scripts\activate
-    # Linux/Mac:
-    source venv/bin/activate
-    ```
-3.  Instale as dependências:
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  **IMPORTANTE:** Crie um arquivo chamado `.env` dentro da pasta `server` e adicione sua chave:
-    ```env
-    GOOGLE_API_KEY="Sua_Chave_Aqui"
-    ```
-5.  Inicie o servidor:
-    ```bash
-    python app.py
-    ```
-    *O servidor rodará em: http://127.0.0.1:5000*
+```bash
+# Clone o repositório
+git clone [https://github.com/Klaudio0707/Desafio---Verificador-de-Email.git](https://github.com/Klaudio0707/Desafio---Verificador-de-Email.git)
+cd server
 
-### 2. Configurando o Frontend (Cliente)
+# Crie um ambiente virtual
+python -m venv venv
 
-1.  Abra um **novo terminal** na pasta `client`:
-    ```bash
-    cd client
-    ```
-2.  Instale as dependências:
-    ```bash
-    npm install
-    ```
-3.  Inicie a aplicação:
-    ```bash
-    npm run dev
-    ```
-4.  Acesse o link mostrado no terminal (geralmente `http://localhost:5173`).
+# Ative o ambiente
+# No Windows:
+venv\Scripts\activate
+# No Linux/Mac:
+source venv/bin/activate
 
----
+# Instale as dependências
+pip install -r requirements.txt
+
+# Crie o arquivo .env na raiz e adicione sua chave
+# GOOGLE_API_KEY="Sua_Chave_Aqui"
+
+# Rode o servidor
+flask run
+# O servidor iniciará em http://localhost:5000
 
 ## 🧪 Como Testar
 
