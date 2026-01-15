@@ -1,17 +1,9 @@
 // HeroImage.tsx
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './styles.module.css';
+import type { IHeroImageProps } from '../../@ITypes/IHeromImageProps';
 
-
-interface HeroImageProps {
-  slide: {
-    id: number;
-    icon: React.ReactNode;
-    bgClass: string;
-  };
-}
-
-export function HeroImage({ slide }: HeroImageProps) {
+export function HeroImage({ slide }: IHeroImageProps) {
   return (
     <div className={styles.visualSection}>
       <AnimatePresence mode="wait">
