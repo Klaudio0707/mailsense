@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from PyPDF2 import PdfReader # Biblioteca para ler PDF
 from ai_service import analyze_email
@@ -17,6 +17,10 @@ def extract_text_from_pdf(file):
     except Exception as e:
         print(f"Erro ao ler PDF: {e}")
         return ""
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 @app.route('/health', methods=['GET'])
 def health_check():
