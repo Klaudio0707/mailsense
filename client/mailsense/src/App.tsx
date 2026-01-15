@@ -1,18 +1,20 @@
 
-
+import { Routes, Route } from 'react-router-dom';
 import './App.css'
+import Home from './pages/Home'
+import Navbar from './components/Navbar'
 
 function App() {
 
 
   return (
     <>
-      <div>
-       
+      <Navbar />
+      <div className="content-container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

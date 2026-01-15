@@ -1,0 +1,63 @@
+.navContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+  background-color: #c9e0f8;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem; 
+  height: 4rem; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoBox {
+display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  /* Impede que o logo quebre linha ou encolha */
+}
+
+.logoIcon {
+  background-color: #2563eb;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+  transition: transform 0.2s;
+}
+
+.logoBox:hover .logoIcon {
+  transform: scale(1.05);
+}
+
+.brandName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #1e293b, #475569);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.socialLinks {
+  display: none; 
+  align-items: center;
+  gap: 1rem;
+  border-right: 1px solid #e2e8f0;
+}
+
+@media (min-width: 640px) {
+  .socialLinks {
+    display: flex; 
+  }
+}
