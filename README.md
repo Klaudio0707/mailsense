@@ -1,12 +1,15 @@
-# 📧 AutoMail AI - Classificador Inteligente de Emails
+# 📧 MailSense - Classificador Inteligente de Emails
 
 > Uma solução Fullstack que utiliza Inteligência Artificial Generativa para triagem, classificação e resposta automática de emails corporativos e financeiros.
 
 ![Status do Projeto](https://img.shields.io/badge/Status-Concluído-green) ![React](https://img.shields.io/badge/Frontend-React%20%7C%20TypeScript-blue) ![Python](https://img.shields.io/badge/Backend-Python%20%7C%20Flask-yellow)
 
+## Deploy
+///
+
 ## 🎯 Sobre o Projeto
 
-O **AutoMail AI** resolve o problema da sobrecarga operacional em equipes de suporte e financeiro. O sistema analisa o conteúdo de emails (texto ou arquivos PDF/TXT), identifica o contexto e classifica a mensagem em:
+O **MailSense** resolve o problema da sobrecarga operacional em equipes de suporte e financeiro. O sistema analisa o conteúdo de emails (texto ou arquivos PDF/TXT), identifica o contexto e classifica a mensagem em:
 
 * **🟢 Produtivo:** Solicitações legítimas (boletos, dúvidas, suporte).
 * **🔴 Improdutivo:** Spam, promoções, avisos automáticos de sistema.
@@ -106,5 +109,5 @@ Siga os passos abaixo para rodar a aplicação localmente.
 
 ## 📞 Contato
 
-Desenvolvido por **[Seu Nome]**
-[Seu LinkedIn] | [Seu Email]
+Desenvolvido por **Cláudio Roberto**
+[[LinkedIn](https://www.linkedin.com/in/cl%C3%A1udio-roberto-filho/)] | [Email](claudiorobertof@outlook.com.br/)
