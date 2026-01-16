@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { ShieldCheck, Zap, BrainCircuit } from 'lucide-react';
 import styles from './styles.module.css';
-import { HeroContent } from '../HeroContent';
-import { HeroImage } from '../HeroImage';
+import { HeroContent } from './HeroContent';
+import { HeroImage } from './HeroImage';
 
 const slides = [
     {
@@ -19,7 +19,7 @@ const slides = [
         id: 2,
         badge: "Eficiência Operacional",
         title: "Fim do Trabalho Repetitivo",
-        desc: "Sua equipe não precisa mais ler spam. O AutoMail AI filtra robôs e notificações automáticas para que você foque no cliente.",
+        desc: "Sua equipe não precisa mais ler spam. O Mailsense filtra robôs e notificações automáticas para que você foque no cliente.",
         icon: <ShieldCheck size={140} />,
         bgClass: styles.bgGreen,
         features: ["Filtro Anti-Spam", "Segurança de Dados", "Foco no Cliente"]

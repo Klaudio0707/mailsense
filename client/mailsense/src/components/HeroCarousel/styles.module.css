@@ -1,0 +1,217 @@
+
+.carouselContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  /* Centralização e Limites */
+  max-width: 1280px;
+  width: 100%;
+  min-height: 100vh; /* Garante que o conteúdo fique centralizado verticalmente na tela */
+  margin: 0 auto;
+  padding: 0 2rem;
+  gap: 4rem;
+  
+  position: relative;
+  z-index: 1;
+}
+
+/* --- LADO ESQUERDO: TEXTO --- */
+.textSection {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 10;
+}
+
+/* Badge (Etiqueta no topo) */
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 99px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #38bdf8; /* Azul claro neon */
+  width: fit-content;
+}
+
+/* Títulos */
+.title {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: #94a3b8; /* Cinza azulado */
+  line-height: 1.6;
+  margin: 0;
+  max-width: 90%;
+}
+
+/* Lista de Features */
+.featuresList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.checkIcon {
+  color: #4ade80; /* Verde neon */
+}
+
+/* Botão de Ação (CTA) */
+.ctaButton {
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+  transition: box-shadow 0.3s ease;
+  width: fit-content;
+}
+
+.ctaButton:hover {
+  box-shadow: 0 20px 35px -5px rgba(37, 99, 235, 0.6);
+}
+
+/* Pontinhos de Navegação (Dots) */
+.indicatorsBox {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dotInactive {
+  background-color: #334155;
+}
+
+.dotActive {
+  background-color: #38bdf8;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+/* --- LADO DIREITO: VISUAL 3D --- */
+.visualSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px; /* Dá profundidade ao 3D */
+}
+
+.card3d {
+  width: 400px;
+  height: 500px;
+  border-radius: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Ícone central gigante */
+.iconWrapper {
+  color: white;
+  z-index: 2;
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
+}
+
+/* Efeito de brilho no card */
+.glowEffect {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+/* --- VARIAÇÕES DE CORES (Gradientes) --- */
+
+/* IA (Azul/Roxo) */
+.bgBlue {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+/* Eficiência (Verde/Esmeralda) */
+.bgGreen {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+}
+
+/* Produtividade (Laranja/Vermelho) */
+.bgOrange {
+  background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1024px) {
+  .carouselContainer {
+    gap: 3rem;
+    padding: 0 2rem;
+    /* Em telas menores, a imagem pode ficar menor ou empilhar */
+    justify-content: center; 
+  }
+}
+
+/* Tablet Vertical e Mobile */
+@media (max-width: 900px) {
+  .carouselContainer {
+    flex-direction: column-reverse; /* Imagem em cima, Texto embaixo */
+    justify-content: center;
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    gap: 3rem;
+    min-height: auto; /* Deixa a altura livre no mobile */
+  }
+}

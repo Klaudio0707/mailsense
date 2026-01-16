@@ -1,12 +1,11 @@
+import HeroCarousel from '../../components/HeroCarousel'
 import styles from './styles.module.css'
 
 const Home = () => {
     return (
-        <div className={styles.container}>
-            <main className={styles.mainContent}>
-            TEste
-            </main>
-        </div>
+        <main className={styles.pageWrapper}>
+            <HeroCarousel />
+        </main>
     )
 }
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import styles from './styles.module.css';
-import type { IHeroContentProps } from '../../@ITypes/IHeroContentProps';
+import type { IHeroContentProps } from '../../../@ITypes/IHeroContentProps';
 
 export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHeroContentProps) {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHer
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => navigate('/app')}
+        onClick={() => navigate('#')}
         className={styles.ctaButton}
       >
         Experimentar Agora <ArrowRight size={20} />

@@ -1,0 +1,189 @@
+/* --- CONTAINER PRINCIPAL --- */
+.textSection {
+  flex: 1;
+  max-width: 580px; /* Um pouco mais largo para o texto respirar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Força alinhamento à esquerda */
+  gap: 2rem; /* Espaçamento generoso entre blocos */
+  z-index: 10;
+  padding: 1rem 0;
+}
+
+/* --- BADGE (Etiqueta de Categoria) --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  
+  /* Estilo Glassmorphism Refinado */
+  background: rgba(14, 165, 233, 0.1); /* Sky Blue bem suave */
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 100px;
+  
+  /* Texto */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #38bdf8; /* Sky 400 */
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- TÍTULO PRINCIPAL --- */
+.title {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 4rem; /* Bem grande e impactante */
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em; /* Letras mais juntinhas para ar moderno */
+  margin: 0;
+  
+  /* Gradiente Branco -> Prata (Sofisticado) */
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  /* Sombra sutil no texto para destacar do fundo escuro */
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* --- DESCRIÇÃO --- */
+.description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #94a3b8; /* Slate 400 - Cinza azulado confortável */
+  margin: 0;
+  max-width: 90%;
+  font-weight: 400;
+}
+
+/* --- LISTA DE FEATURES (Tags) --- */
+.featuresList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #e2e8f0; /* Slate 200 */
+  
+  /* Fundo escuro sutil */
+  background: rgba(30, 41, 59, 0.6);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Borda quase invisível */
+  
+  transition: border-color 0.2s;
+}
+
+.featureItem:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.checkIcon {
+  color: #4ade80; /* Verde Neon vibrante */
+  min-width: 18px; /* Evita que o ícone esmague */
+}
+
+/* --- BOTÃO CTA (Primary) --- */
+.ctaButton {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  
+  /* Azul Vibrante Sólido (Tendência atual) */
+  background-color: #2563eb; 
+  color: #ffffff;
+  
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2.5rem; /* Mais largo */
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  
+  /* Glow Effect azul */
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 1), 0 8px 20px -6px rgba(37, 99, 235, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  background-color: #1d4ed8;
+  box-shadow: 0 0 0 1px #1d4ed8, 0 12px 25px -8px rgba(37, 99, 235, 0.7);
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+}
+
+/* --- INDICADORES (Dots) --- */
+.indicatorsBox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.dot {
+  height: 6px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dotInactive {
+  width: 6px;
+  background-color: #475569; /* Slate 600 */
+}
+
+.dotActive {
+  width: 32px; /* Estica para virar uma barra */
+  background-color: #38bdf8; /* Sky 400 */
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1024px) {
+  .title { font-size: 3rem; }
+  .textSection { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .textSection {
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 0;
+  }
+  
+  .title { font-size: 2.5rem; }
+  
+  .featuresList {
+    justify-content: center;
+  }
+  
+  .ctaButton {
+    width: 100%; /* Botão full width no celular */
+    justify-content: center;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+}

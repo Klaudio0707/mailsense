@@ -1,0 +1,11 @@
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0f172a; 
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+}
