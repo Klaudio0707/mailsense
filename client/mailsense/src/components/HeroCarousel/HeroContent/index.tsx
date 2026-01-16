@@ -45,7 +45,7 @@ export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHer
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => navigate('#')}
+        onClick={() => navigate('analyze')}
         className={styles.ctaButton}
       >
         Experimentar Agora <ArrowRight size={20} />

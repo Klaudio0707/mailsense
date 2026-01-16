@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1200px; /* Perspectiva essencial para o 3D funcionar bem */
+  perspective: 1200px;
   height: 100%;
   position: relative;
   z-index: 1;
@@ -12,96 +12,74 @@
 .card3d {
   width: 400px;
   height: 500px;
-  border-radius: 30px; 
+  border-radius: 30px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  /* Borda sutil de vidro */
+  cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  
-  /* Sombra profunda para dar a sensação de flutuar */
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.5), 
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    
   overflow: hidden;
-  
-  /* O efeito de vidro fosco "premium" */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* --- VARIAÇÕES DE COR (GRADIENTES SUAVES) --- */
-/* Usamos opacidade (rgba) para manter o efeito de vidro visível */
-
-/* Slide 1: Azul (Tech/IA) */
 .bgBlue {
-  background: linear-gradient(
-    135deg, 
-    rgba(30, 58, 138, 0.4) 0%, /* Azul escuro transparente */
-    rgba(59, 130, 246, 0.3) 100% /* Azul claro transparente */
-  );
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15); /* Glow externo azul */
+  background: linear-gradient(135deg,
+      rgba(30, 58, 138, 0.4) 0%,
+      rgba(59, 130, 246, 0.3) 100%);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
 }
 
-/* Slide 2: Verde (Segurança/Eficiência) */
 .bgGreen {
-  background: linear-gradient(
-    135deg, 
-    rgba(6, 78, 59, 0.4) 0%, 
-    rgba(16, 185, 129, 0.3) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(6, 78, 59, 0.4) 0%,
+      rgba(16, 185, 129, 0.3) 100%);
   box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
 }
 
-/* Slide 3: Laranja (Produtividade) */
 .bgOrange {
-  background: linear-gradient(
-    135deg, 
-    rgba(124, 45, 18, 0.4) 0%, 
-    rgba(249, 115, 22, 0.3) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(124, 45, 18, 0.4) 0%,
+      rgba(249, 115, 22, 0.3) 100%);
   box-shadow: 0 0 40px rgba(249, 115, 22, 0.15);
 }
 
-/* --- EFEITO DE LUZ INTERNA (GLOW) --- */
 .glowEffect {
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  
-  /* Um facho de luz diagonal */
-  background: radial-gradient(
-    circle at center, 
-    rgba(255, 255, 255, 0.15) 0%, 
-    rgba(255, 255, 255, 0) 60%
-  );
-  
+  background: radial-gradient(circle at center,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0) 60%);
   transform: rotate(45deg);
   pointer-events: none;
-  mix-blend-mode: overlay; /* Mistura a luz com o fundo */
+  mix-blend-mode: overlay;
 }
 
 /* --- ÍCONE --- */
 .iconWrapper {
   color: white;
   z-index: 10;
-  
-  /* Sombra no ícone para destacar do fundo */
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-  
-  /* Animação suave de flutuação do ícone */
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
   animation: floatIcon 6s ease-in-out infinite;
 }
 
 @keyframes floatIcon {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* --- RESPONSIVIDADE --- */
@@ -115,7 +93,8 @@
 @media (max-width: 768px) {
   .visualSection {
     margin-bottom: 2rem;
-    perspective: none; /* Remove 3D no mobile para performance */
+    perspective: none;
+    /* Remove 3D no mobile para performance */
   }
 
   .card3d {

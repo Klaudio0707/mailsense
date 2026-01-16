@@ -1,0 +1,133 @@
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0f172a; /* Slate 900 */
+  padding-top: 100px; /* Espaço para o Navbar fixo */
+  padding-bottom: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+}
+
+.subtitle {
+  color: #94a3b8;
+}
+
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  min-height: 500px;
+}
+
+.emailList, .analysisPanel {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.panelHeader {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* Estilo da Lista */
+.emailItem {
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid transparent;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.emailItem:hover {
+  border-color: rgba(255,255,255,0.1);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.emailItemActive {
+  background: rgba(56, 189, 248, 0.1); /* Azul ativo */
+  border-color: #38bdf8;
+}
+
+.sender {
+  display: block;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.subject {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.metricCard {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.metricLabel {
+  display: block;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.metricValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.safeTag { color: #4ade80; display: flex; align-items: center; gap: 0.5rem; }
+.dangerTag { color: #f87171; display: flex; align-items: center; gap: 0.5rem; }
+.iconBlue { color: #38bdf8; }
+
+.summaryBox {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 3px solid #38bdf8;
+}
+
+.summaryText {
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .dashboardGrid { grid-template-columns: 1fr; }
+}
