@@ -1,0 +1,99 @@
+.footerContainer {
+  background-color: #e5e9f0;
+  border-top: 1px solid #e2e8f0;
+  padding: 2rem 1.5rem;
+  margin-top: auto;
+  width: 100%;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.brandSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.brandName {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0c0d0e;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  color: #384250;
+  margin: 0;
+}
+
+.creditsSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+   gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #68717e;
+  /* Slate-400 */
+}
+
+.devInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.devName {
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.devName:hover {
+  color: #2563eb;
+}
+
+.heartIcon {
+  color: #f87171;
+  fill: #f87171;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.techStack {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .creditsSection {
+    align-items: center;
+  }
+}
