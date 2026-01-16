@@ -63,7 +63,6 @@
   mix-blend-mode: overlay;
 }
 
-/* --- ÍCONE --- */
 .iconWrapper {
   color: white;
   z-index: 10;
@@ -72,6 +71,7 @@
 }
 
 @keyframes floatIcon {
+
   0%,
   100% {
     transform: translateY(0);

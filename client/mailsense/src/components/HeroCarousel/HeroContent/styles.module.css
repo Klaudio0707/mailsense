@@ -1,12 +1,11 @@
-/* --- CONTAINER PRINCIPAL --- */
 .textSection {
   flex: 1;
-  max-width: 580px; /* Um pouco mais largo para o texto respirar */
+  max-width: 580px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Força alinhamento à esquerda */
-  gap: 2rem; /* Espaçamento generoso entre blocos */
+  align-items: flex-start; 
+  gap: 2rem;
   z-index: 10;
   padding: 1rem 0;
 }
@@ -16,40 +15,31 @@
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  
-  /* Estilo Glassmorphism Refinado */
-  background: rgba(14, 165, 233, 0.1); /* Sky Blue bem suave */
+  background: rgba(14, 165, 233, 0.1); 
   border: 1px solid rgba(14, 165, 233, 0.2);
   backdrop-filter: blur(8px);
   border-radius: 100px;
-  
-  /* Texto */
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #38bdf8; /* Sky 400 */
-  
+  color: #38bdf8;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* --- TÍTULO PRINCIPAL --- */
 .title {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 4rem; /* Bem grande e impactante */
+  font-size: 4rem; 
   line-height: 1.1;
   font-weight: 800;
-  letter-spacing: -0.03em; /* Letras mais juntinhas para ar moderno */
+  letter-spacing: -0.03em; 
   margin: 0;
-  
-  /* Gradiente Branco -> Prata (Sofisticado) */
   background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  
-  /* Sombra sutil no texto para destacar do fundo escuro */
   text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
@@ -57,7 +47,7 @@
 .description {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #94a3b8; /* Slate 400 - Cinza azulado confortável */
+  color: #94a3b8;
   margin: 0;
   max-width: 90%;
   font-weight: 400;
@@ -78,7 +68,7 @@
   
   font-size: 0.875rem;
   font-weight: 500;
-  color: #e2e8f0; /* Slate 200 */
+  color: #e2e8f0;
   
   /* Fundo escuro sutil */
   background: rgba(30, 41, 59, 0.6);
@@ -94,7 +84,7 @@
 }
 
 .checkIcon {
-  color: #4ade80; /* Verde Neon vibrante */
+  color: #4ade80;
   min-width: 18px; /* Evita que o ícone esmague */
 }
 
@@ -105,18 +95,15 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  
-  /* Azul Vibrante Sólido (Tendência atual) */
   background-color: #2563eb; 
   color: #ffffff;
   
   font-size: 1rem;
   font-weight: 600;
-  padding: 1rem 2.5rem; /* Mais largo */
+  padding: 1rem 2.5rem;
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  
   /* Glow Effect azul */
   box-shadow: 0 0 0 1px rgba(37, 99, 235, 1), 0 8px 20px -6px rgba(37, 99, 235, 0.6);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -149,11 +136,11 @@
 
 .dotInactive {
   width: 6px;
-  background-color: #475569; /* Slate 600 */
+  background-color: #475569;
 }
 
 .dotActive {
-  width: 32px; /* Estica para virar uma barra */
+  width: 32px; 
   background-color: #38bdf8; /* Sky 400 */
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
 }

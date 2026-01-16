@@ -4,10 +4,10 @@
   align-items: center;
   justify-content: space-between;
   
-  /* Centralização e Limites */
+
   max-width: 1280px;
   width: 100%;
-  min-height: 100vh; /* Garante que o conteúdo fique centralizado verticalmente na tela */
+  min-height: 100vh; 
   margin: 0 auto;
   padding: 0 2rem;
   gap: 4rem;
@@ -16,7 +16,7 @@
   z-index: 1;
 }
 
-/* --- LADO ESQUERDO: TEXTO --- */
+
 .textSection {
   flex: 1;
   max-width: 600px;
@@ -83,7 +83,7 @@
 }
 
 .checkIcon {
-  color: #4ade80; /* Verde neon */
+  color: #4ade80; 
 }
 
 /* Botão de Ação (CTA) */
@@ -109,7 +109,6 @@
   box-shadow: 0 20px 35px -5px rgba(37, 99, 235, 0.6);
 }
 
-/* Pontinhos de Navegação (Dots) */
 .indicatorsBox {
   display: flex;
   gap: 0.75rem;
@@ -157,14 +156,12 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Ícone central gigante */
 .iconWrapper {
   color: white;
   z-index: 2;
   filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
 }
 
-/* Efeito de brilho no card */
 .glowEffect {
   position: absolute;
   top: -50%;
@@ -176,19 +173,15 @@
   pointer-events: none;
 }
 
-/* --- VARIAÇÕES DE CORES (Gradientes) --- */
 
-/* IA (Azul/Roxo) */
 .bgBlue {
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
 }
 
-/* Eficiência (Verde/Esmeralda) */
 .bgGreen {
   background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
 }
 
-/* Produtividade (Laranja/Vermelho) */
 .bgOrange {
   background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
 }
@@ -206,7 +199,7 @@
 /* Tablet Vertical e Mobile */
 @media (max-width: 900px) {
   .carouselContainer {
-    flex-direction: column-reverse; /* Imagem em cima, Texto embaixo */
+    flex-direction: column-reverse;
     justify-content: center;
     text-align: center;
     padding-top: 3rem;
