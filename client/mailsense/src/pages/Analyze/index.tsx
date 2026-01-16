@@ -1,21 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Loader2, ArrowLeft, CheckCircle2, CoffeeIcon } from 'lucide-react';
+import { Sparkles, Loader2, ArrowLeft, CheckCircle2, CoffeeIcon, AlarmClock, WifiOff } from 'lucide-react';
 import { emailService } from '../../services/api';
 import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
 import styles from './styles.module.css';
 
 import { InputSection } from '../../components/Analyze/InputSection';
 import { ResultSection } from '../../components/Analyze/ResultSection';
-import { HistorySection,type IHistoryItem } from '../../components/HistorySection'; // Importe o novo componente
+import { HistorySection, type IHistoryItem } from '../../components/HistorySection';
 
-
-type ServerStatus = 'checking' | 'online' | 'offline';
+type ServerStatus = 'checking' | 'online' | 'offline' | 'waking-up';
 
 export default function Analyze() {
   const navigate = useNavigate();
-  
-  // --- STATES ---
+
   const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -23,9 +21,10 @@ export default function Analyze() {
   const [serverStatus, setServerStatus] = useState<ServerStatus>('checking');
   const [history, setHistory] = useState<IHistoryItem[]>([]);
 
-  // --- EFEITO: Carregar LocalStorage e Checar Servidor ---
+  const retryCount = useRef(0);
+  const maxRetries = 15; 
+
   useEffect(() => {
-    // 1. Carrega Histórico
     const saved = localStorage.getItem('@mailsense:history');
     if (saved) {
       try {
@@ -35,19 +34,37 @@ export default function Analyze() {
       }
     }
 
-    // 2. Checa Servidor
-    const checkServer = async () => {
+    const wakeUpServer = async () => {
       try {
         await emailService.checkHealth();
         setServerStatus('online');
-      } catch {
-        setServerStatus('offline');
+      } catch (error) {
+        setServerStatus('waking-up');
+        
+        const interval = setInterval(async () => {
+          retryCount.current += 1;
+          
+          try {
+            await emailService.checkHealth();
+            clearInterval(interval);
+            setServerStatus('online');
+          } catch (e) {
+            if (retryCount.current >= maxRetries) {
+              clearInterval(interval);
+              setServerStatus('offline');
+            }
+          }
+        }, 2000); 
+
+ 
+        return () => clearInterval(interval);
       }
     };
-    checkServer();
+
+    wakeUpServer();
   }, []);
 
-  // --- FUNÇÕES DE HISTÓRICO ---
+
   const saveToHistory = (newItem: IHistoryItem) => {
     const updatedHistory = [newItem, ...history];
     setHistory(updatedHistory);
@@ -55,39 +72,32 @@ export default function Analyze() {
   };
 
   const deleteFromHistory = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que clique no item e o selecione ao mesmo tempo
+    e.stopPropagation(); 
     const updatedHistory = history.filter(item => item.id !== id);
     setHistory(updatedHistory);
     localStorage.setItem('@mailsense:history', JSON.stringify(updatedHistory));
-
   };
 
   const clearHistory = () => {
     if (confirm("Tem certeza que deseja limpar todo o histórico?")) {
       setHistory([]);
       localStorage.removeItem('@mailsense:history');
-   
     }
   };
-
 
   const handleSubmit = async () => {
     // Validação
     if (!text.trim() && !file && text.length < 2) {
-     
       return;
     }
     
     setLoading(true);
     setResult(null);
     
-    
     try {
-
       const data = await emailService.analyze(text, file);
       setResult(data);
       
-
       const newItem: IHistoryItem = {
         id: crypto.randomUUID(),
         timestamp: Date.now(),
@@ -96,18 +106,16 @@ export default function Analyze() {
         result: data
       };
 
-      // 3. Salva
       saveToHistory(newItem);
 
-      // 4. Feedback Visual
       if (data.category === 'Produtivo') {
        alert("Email classificado como PRODUTIVO. Verifique a sugestão de resposta.");
       } else {
-        alert("Email classificado como IMPRODUTIVO. Considere revisar o conteúdo antes de enviar.");
+       alert("Email classificado como IMPRODUTIVO. Considere revisar o conteúdo antes de enviar.");
       }
     } catch (error) {
       console.error(error);
-      
+      alert("Erro ao processar análise. Verifique se o servidor está online.");
     } finally {
       setLoading(false);
     }
@@ -126,13 +134,19 @@ export default function Analyze() {
             <p className={styles.subtitle}>Cole o email ou anexe um arquivo para triagem.</p>
           </div>
           
-          <div className={`${styles.statusBadge} ${serverStatus === 'online' ? styles.statusOnline : ''}`}>
+          <div className={`
+            ${styles.statusBadge} 
+            ${serverStatus === 'online' ? styles.statusOnline : ''}
+            ${serverStatus === 'waking-up' ? styles.statusWaking : ''}
+          `}>
             {serverStatus === 'online' ? (
               <><CheckCircle2 size={16} /> Sistema Operacional</>
+            ) : serverStatus === 'waking-up' ? (
+              <><AlarmClock size={16} className={styles.pulse} /> Acordando Servidor...</>
             ) : serverStatus === 'checking' ? (
-              <><Loader2 size={16} className={styles.spin} /> Conectando...</>
+              <><Loader2 size={16} className={styles.spin} /> Verificando...</>
             ) : (
-              <>Offline... <CoffeeIcon size={16} /></>
+              <><WifiOff size={16} /> Offline</>
             )}
           </div>
         </header>

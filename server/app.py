@@ -1,11 +1,12 @@
 import os
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
-from PyPDF2 import PdfReader # Biblioteca para ler PDF
+from PyPDF2 import PdfReader
 from ai_service import analyze_email
 
 app = Flask(__name__)
-CORS(app)
+# Habilita CORS para o Frontend (React) conseguir falar com o Backend
+CORS(app) 
 
 def extract_text_from_pdf(file):
     try:
@@ -28,30 +29,34 @@ def health_check():
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
-    text_content = ""
+    final_content = "" 
 
+    if 'email_text' in request.form:
+        final_content += request.form['email_text'] + "\n\n"
+
+    # (PDF ou TXT)
     if 'file' in request.files:
         file = request.files['file']
         filename = file.filename.lower()
         
+        file_text = ""
         if filename.endswith('.pdf'):
-            text_content = extract_text_from_pdf(file)
+            file_text = extract_text_from_pdf(file)
         elif filename.endswith('.txt'):
-            text_content = file.read().decode('utf-8')
-        else:
-            return jsonify({"error": "Formato não suportado. Use .pdf ou .txt"}), 400
+            file_text = file.read().decode('utf-8')
+        
+        if file_text:
+            final_content += f"--- CONTEÚDO DO ANEXO ({filename}) ---\n{file_text}"
 
-    elif 'email_text' in request.form:
-        text_content = request.form['email_text']
-
-    if not text_content or len(text_content.strip()) == 0:
-        return jsonify({"error": "Não foi possível ler o conteúdo do email."}), 400
+    if not final_content or len(final_content.strip()) == 0:
+        return jsonify({"error": "Nenhum conteúdo de texto ou arquivo válido fornecido."}), 400
 
     try:
-        result = analyze_email(text_content)
+        # Chama a IA
+        result = analyze_email(final_content)
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
