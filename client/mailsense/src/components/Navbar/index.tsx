@@ -8,10 +8,10 @@ export default function Navbar() {
     return (
         <nav className={styles.navContainer}>
             <div className={styles.content}>
-
                 <div className={styles.logoBox} onClick={() => navigate('/')}>
                     <div className={styles.logoIcon}>
-                        <Send size={24} />
+                        <Send size={20} strokeWidth={2.5} style={{ marginLeft: '-2px' }} /> 
+                     
                     </div>
                     <span className={styles.brandName}>
                         MailSense
@@ -22,7 +22,7 @@ export default function Navbar() {
                         <a
                             href="https://github.com/Klaudio0707"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className={styles.socialIcon}
                             title="GitHub"
                         >

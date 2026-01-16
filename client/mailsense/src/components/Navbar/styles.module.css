@@ -1,63 +1,118 @@
+/* Container que fixa no topo com efeito de vidro */
 .navContainer {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  z-index: 50;
-  transition: all 0.3s ease;
-  background-color: #c9e0f8;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: 80px; /* Altura fixa */
+  z-index: 100; /* Garante que fique acima de tudo */
+  
+  /* Glassmorphism Profissional */
+  background: rgba(15, 23, 42, 0.6); /* Slate 900 com transparência */
+  backdrop-filter: blur(12px); /* O desfoque mágico */
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Borda sutil apenas embaixo */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Área de conteúdo centralizada (alinha com o Hero) */
 .content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem; 
-  height: 4rem; 
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
+/* --- LOGO --- */
 .logoBox {
-display: flex;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
-  flex-shrink: 0;
-  /* Impede que o logo quebre linha ou encolha */
+  transition: opacity 0.2s;
 }
 
+.logoBox:hover {
+  opacity: 0.9;
+}
+
+/* Ícone com fundo gradiente */
 .logoIcon {
-  background-color: #2563eb;
-  padding: 0.5rem;
-  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  border-radius: 10px;
   color: white;
-  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); /* Glow azul */
 }
 
-.logoBox:hover .logoIcon {
-  transform: scale(1.05);
-}
-
+/* Texto da Marca */
 .brandName {
+  font-family: system-ui, -apple-system, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  background: linear-gradient(to right, #1e293b, #475569);
-  -webkit-background-clip: text;
-  color: transparent;
+  color: #f8fafc; /* Slate 50 */
+  letter-spacing: -0.02em;
+}
+
+/* --- SOCIAL LINKS --- */
+.rightSection {
+  display: flex;
+  align-items: center;
 }
 
 .socialLinks {
-  display: none; 
+  display: flex;
   align-items: center;
   gap: 1rem;
-  border-right: 1px solid #e2e8f0;
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1); /* Divisória vertical sutil */
 }
 
-@media (min-width: 640px) {
-  .socialLinks {
-    display: flex; 
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: #94a3b8; /* Slate 400 (Cinza) */
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.socialIcon:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #38bdf8; /* Azul Sky no hover */
+  transform: translateY(-2px);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .navContainer {
+    height: 70px;
+  }
+  
+  .content {
+    padding: 0 1.5rem;
+  }
+  
+  .brandName {
+    display: none; /* Em telas muito pequenas, pode esconder o nome se quiser */
+  }
+  
+  /* Se esconder o nome, mostre só o ícone */
+  @media (min-width: 400px) {
+    .brandName { display: block; font-size: 1.1rem; }
   }
 }
