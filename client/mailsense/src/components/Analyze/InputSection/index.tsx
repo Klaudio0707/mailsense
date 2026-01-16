@@ -34,7 +34,6 @@ export function InputSection({
                 <FileText size={18} color="#6366f1" />
                 Entrada de Dados
             </div>
-
             <textarea
                 className={styles.textArea}
                 placeholder="Cole o corpo do email aqui..."
@@ -44,10 +43,8 @@ export function InputSection({
 
             <div className={styles.separator}><span>ou</span></div>
 
-            {/* Upload */}
             {serverOnline ? (
                 <>
-                    {/* Upload Box (Só aparece se online) */}
                     <div className={styles.fileUploadBox} onClick={() => document.getElementById('file-upload')?.click()}>
                         <input
                             type="file"
@@ -76,7 +73,6 @@ export function InputSection({
                         )}
                     </div>
 
-                    {/* Submit Button (Só aparece se online) */}
                     <button
                         className={styles.submitBtn}
                         onClick={onSubmit}
@@ -86,7 +82,6 @@ export function InputSection({
                     </button>
                 </>
             ) : (
-                /* Estado OFFLINE */
                 <div className={styles.offlineBox}>
                     <WifiOff size={24} color="#ef4444" style={{ margin: "10px" }} />
                     <span>Sistema Offline.</span>
