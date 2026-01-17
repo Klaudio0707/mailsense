@@ -6,7 +6,6 @@ import Analyze from './pages/Analyze';
 
 function App() {
 
-
   return (
     <> 
       <Navbar />
