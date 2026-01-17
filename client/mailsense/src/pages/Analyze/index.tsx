@@ -29,7 +29,7 @@ export default function Analyze() {
   
   useEffect(() => {
     let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const saved = localStorage.getItem('@mailsense:history');
     if (saved) {
