@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Loader2, ArrowLeft, CheckCircle2, CoffeeIcon, AlarmClock, WifiOff } from 'lucide-react';
+import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff } from 'lucide-react';
 import { emailService } from '../../services/api';
 import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
 import styles from './styles.module.css';
