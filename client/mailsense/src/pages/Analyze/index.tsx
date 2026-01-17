@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff } from 'lucide-react';
+import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff, CheckSquareIcon } from 'lucide-react';
 import { emailService } from '../../services/api';
 import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
 import styles from './styles.module.css';
-
+import { toast } from 'sonner'; 
 import { InputSection } from '../../components/Analyze/InputSection';
 import { ResultSection } from '../../components/Analyze/ResultSection';
 import { HistorySection, type IHistoryItem } from '../../components/HistorySection';
@@ -38,9 +38,10 @@ export default function Analyze() {
       try {
         await emailService.checkHealth();
         setServerStatus('online');
+        toast.info("Online");
       } catch (error) {
         setServerStatus('waking-up');
-        
+        toast.warning("Acordando o servidor, isso pode levar alguns segundos...");
         const interval = setInterval(async () => {
           retryCount.current += 1;
           
@@ -48,6 +49,7 @@ export default function Analyze() {
             await emailService.checkHealth();
             clearInterval(interval);
             setServerStatus('online');
+            toast.success("Servidor online!", { icon: <CheckSquareIcon/>,});
           } catch (e) {
             if (retryCount.current >= maxRetries) {
               clearInterval(interval);
@@ -86,11 +88,19 @@ export default function Analyze() {
   };
 
   const handleSubmit = async () => {
-    // Validação
-    if (!text.trim() && !file && text.length < 2) {
+    try {
+      if(text.length< 3){       
+        if (!text.trim() && !file  ) {
+          setLoading(true);
+          setResult(null);
+          const toastId = toast.loading('Processando com IA...');
+          return
+        }
       return;
     }
-    
+  } catch (error: any) {
+    toast.error("Informação incompleta. Forneça texto ou arquivo para análise.");
+  }
     setLoading(true);
     setResult(null);
     
@@ -175,8 +185,7 @@ export default function Analyze() {
               onClear={clearHistory}
             />
           </div>
-
-          <ResultSection result={result} loading={loading} />
+          <ResultSection result={result} loading={loading}/>
 
         </main>
       </div>

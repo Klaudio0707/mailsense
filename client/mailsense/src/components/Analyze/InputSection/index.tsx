@@ -1,5 +1,4 @@
 import { FileText, Upload, Paperclip, X, Loader2, Sparkles, WifiOff } from 'lucide-react';
-
 import styles from './styles.module.css';
 
 interface InputSectionProps {

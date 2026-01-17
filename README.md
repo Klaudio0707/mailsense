@@ -13,7 +13,7 @@ O **MailSense** é uma aplicação web Full Stack que utiliza Inteligência Arti
 
 ## 🔗 Links do Projeto
 
-- **🌐 Aplicação Online (Deploy):** [CLIQUE AQUI PARA ACESSAR](SEU_LINK_DO_RENDER_OU_VERCEL_AQUI)
+- **🌐 Aplicação Online (Deploy):** [CLIQUE AQUI PARA ACESSAR](https://mailsense-seven.vercel.app/)
 - **🎬 Vídeo de Demonstração:** [ASSISTIR NO YOUTUBE](SEU_LINK_DO_YOUTUBE_AQUI)
 
 ---
