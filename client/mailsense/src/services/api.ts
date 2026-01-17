@@ -9,8 +9,13 @@ const api = axios.create({
 });
 
 export const emailService = {
-    checkHealth: async () => {
-        return api.get('/health', { timeout: 2000 });
+    checkHealth: async (): Promise<boolean> => {
+        try {
+            await api.get('/health', { timeout: 5000 }); 
+            return true;
+        } catch (error) {
+            return false;
+        }
     },
 
     analyze: async (text: string, file: File | null) => {

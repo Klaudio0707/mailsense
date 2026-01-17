@@ -11,61 +11,74 @@ import { HistorySection, type IHistoryItem } from '../../components/HistorySecti
 
 type ServerStatus = 'checking' | 'online' | 'offline' | 'waking-up';
 
+const MIN_CHARS = 10;
+const MAX_CHARS = 5000; 
+const MAX_FILE_SIZE_MB = 1;
+
 export default function Analyze() {
   const navigate = useNavigate();
-
+  
   const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<IAnalysisResult | null>(null);
   const [serverStatus, setServerStatus] = useState<ServerStatus>('checking');
   const [history, setHistory] = useState<IHistoryItem[]>([]);
-
-  const retryCount = useRef(0);
-  const maxRetries = 15; 
-
+  
+  const isFirstLoad = useRef(true);
+  
   useEffect(() => {
+    let isMounted = true;
+    let timeoutId: NodeJS.Timeout;
+
     const saved = localStorage.getItem('@mailsense:history');
     if (saved) {
       try {
         setHistory(JSON.parse(saved));
       } catch (e) {
-        console.error("Erro ao ler localStorage", e);
+        console.error(e);
       }
     }
 
-    const wakeUpServer = async () => {
-      try {
-        await emailService.checkHealth();
-        setServerStatus('online');
-        toast.info("Online");
-      } catch (error) {
-        setServerStatus('waking-up');
-        toast.warning("Acordando o servidor, isso pode levar alguns segundos...");
-        const interval = setInterval(async () => {
-          retryCount.current += 1;
-          
-          try {
-            await emailService.checkHealth();
-            clearInterval(interval);
-            setServerStatus('online');
-            toast.success("Servidor online!", { icon: <CheckSquareIcon/>,});
-          } catch (e) {
-            if (retryCount.current >= maxRetries) {
-              clearInterval(interval);
-              setServerStatus('offline');
-            }
+    const monitorServer = async () => {
+      const isOnline = await emailService.checkHealth();
+      
+      if (!isMounted) return;
+      
+      if (isOnline) {
+        setServerStatus((prevStatus) => {
+          if (prevStatus !== 'online' && !isFirstLoad.current) {
+            toast.success("Conexão restabelecida!", { icon: <CheckSquareIcon /> });
           }
-        }, 2000); 
+          return 'online';
+        });
+        timeoutId = setTimeout(monitorServer, 30000);
+      } 
+      else {
+        setServerStatus((prevStatus) => {
+          if (prevStatus === 'online') {
+            toast.error("Conexão perdida. Tentando reconectar...");
+          }
+          return isFirstLoad.current ? 'waking-up' : 'offline';
+        });
 
- 
-        return () => clearInterval(interval);
+        if (isFirstLoad.current) {
+            toast.warning("Acordando o servidor...");
+        }
+
+        timeoutId = setTimeout(monitorServer, 4000);
       }
+
+      isFirstLoad.current = false;
     };
 
-    wakeUpServer();
-  }, []);
+    monitorServer();
 
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const saveToHistory = (newItem: IHistoryItem) => {
     const updatedHistory = [newItem, ...history];
@@ -75,32 +88,58 @@ export default function Analyze() {
 
   const deleteFromHistory = (id: string, e: React.MouseEvent) => {
     e.stopPropagation(); 
+    
+    const previousHistory = [...history];
     const updatedHistory = history.filter(item => item.id !== id);
+    
     setHistory(updatedHistory);
     localStorage.setItem('@mailsense:history', JSON.stringify(updatedHistory));
+
+    toast.success("Item removido.", {
+      action: {
+        label: 'Desfazer',
+        onClick: () => {
+          setHistory(previousHistory);
+          localStorage.setItem('@mailsense:history', JSON.stringify(previousHistory));
+        },
+      },
+      duration: 4000,
+    });
   };
 
   const clearHistory = () => {
     if (confirm("Tem certeza que deseja limpar todo o histórico?")) {
       setHistory([]);
       localStorage.removeItem('@mailsense:history');
+      toast.success("Histórico limpo.");
     }
   };
 
   const handleSubmit = async () => {
-    try {
-      if(text.length< 3){       
-        if (!text.trim() && !file  ) {
-          setLoading(true);
-          setResult(null);
-          const toastId = toast.loading('Processando com IA...');
-          return
-        }
-      return;
+    if (!file) {
+      if (!text.trim()) {
+        toast.warning("Por favor, cole um texto ou anexe um arquivo.");
+        return;
+      }
+      if (text.trim().length < MIN_CHARS) {
+        toast.warning(`Texto muito curto. Digite pelo menos ${MIN_CHARS} caracteres para uma análise útil.`);
+        return;
+      }
     }
-  } catch (error: any) {
-    toast.error("Informação incompleta. Forneça texto ou arquivo para análise.");
-  }
+
+    if (text.length > MAX_CHARS) {
+        toast.error(`Texto muito longo. O limite é ${MAX_CHARS} caracteres.`);
+        return;
+    }
+
+    if (file) {
+      const fileSizeMB = file.size / (1024 * 1024);
+      if (fileSizeMB > MAX_FILE_SIZE_MB) {
+        toast.error(`Arquivo muito grande (${fileSizeMB.toFixed(1)}MB). Limite: ${MAX_FILE_SIZE_MB}MB.`);
+        return;
+      }
+    }
+
     setLoading(true);
     setResult(null);
     
@@ -119,13 +158,13 @@ export default function Analyze() {
       saveToHistory(newItem);
 
       if (data.category === 'Produtivo') {
-       alert("Email classificado como PRODUTIVO. Verifique a sugestão de resposta.");
+       toast.success("Email classificado como PRODUTIVO.");
       } else {
-       alert("Email classificado como IMPRODUTIVO. Considere revisar o conteúdo antes de enviar.");
+       toast.warning("Email classificado como IMPRODUTIVO.");
       }
     } catch (error) {
       console.error(error);
-      alert("Erro ao processar análise. Verifique se o servidor está online.");
+      toast.error("Erro ao processar análise. Verifique a conexão.");
     } finally {
       setLoading(false);
     }
@@ -134,23 +173,22 @@ export default function Analyze() {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.contentWrapper}>
-        
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             <button onClick={() => navigate('/')} className={styles.backButton}>
               <ArrowLeft size={18}/> Voltar
             </button>
-            <h1><Sparkles size={32} color="#6366f1" /> Análise Inteligente</h1>
-            <p className={styles.subtitle}>Cole o email ou anexe um arquivo para triagem.</p>
+            <h2 className={styles.title}><Sparkles size={30} color="#6366f1" /> Análise Inteligente</h2>
+            <p className={styles.subtitle}>Cole o email ou anexe um arquivo para análise.</p>
           </div>
-          
           <div className={`
             ${styles.statusBadge} 
             ${serverStatus === 'online' ? styles.statusOnline : ''}
             ${serverStatus === 'waking-up' ? styles.statusWaking : ''}
+            ${serverStatus === 'offline' ? styles.statusOffline : ''}
           `}>
             {serverStatus === 'online' ? (
-              <><CheckCircle2 size={16} /> Sistema Operacional</>
+              <><CheckCircle2 size={16} /> IA Operacional</>
             ) : serverStatus === 'waking-up' ? (
               <><AlarmClock size={16} className={styles.pulse} /> Acordando Servidor...</>
             ) : serverStatus === 'checking' ? (
@@ -160,9 +198,7 @@ export default function Analyze() {
             )}
           </div>
         </header>
-
         <main className={styles.mainGrid}>
-          
           <div className={styles.leftColumn}>
             <InputSection 
               text={text}
@@ -174,11 +210,14 @@ export default function Analyze() {
               onSubmit={handleSubmit}
             />
 
+            <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.5rem', textAlign: 'right' }}>
+               {text.length > 0 && <span>{text.length} / {MAX_CHARS} caracteres</span>}
+            </div>
             <HistorySection 
               items={history}
-              onSelect={(item: { result: any; }) => {
+              onSelect={(item: { result:IAnalysisResult }) => {
                 setResult(item.result);
-                alert("Resultado carregado do histórico.");
+                toast.info("Resultado carregado do histórico.");
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               onDelete={deleteFromHistory}
@@ -186,7 +225,6 @@ export default function Analyze() {
             />
           </div>
           <ResultSection result={result} loading={loading}/>
-
         </main>
       </div>
     </div>
