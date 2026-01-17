@@ -11,7 +11,7 @@ interface EmailCardProps {
 }
 export default function EmailCard({ data }: EmailCardProps) {
   const [copied, setCopied] = useState(false);
-  const isProductive = data.category === 'Produtivo';
+  const isProductive = data.category?.trim().toLowerCase() === 'produtivo';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(data.reply);
