@@ -23,7 +23,7 @@ export function HistorySection({ items, onSelect, onDelete, onClear }: HistorySe
       <div className={styles.header}>
         <div className={styles.title}>
           <History size={14} style={{ display: 'inline', marginRight: 6 }} />
-          Histórico de Verificações
+          Análises Feitas
         </div>
         {items.length > 0 && (
           <button onClick={onClear} className={styles.clearBtn}>Limpar Tudo</button>
@@ -36,7 +36,7 @@ export function HistorySection({ items, onSelect, onDelete, onClear }: HistorySe
         ) : (
           items.map((item) => (
             <div key={item.id} className={styles.item} onClick={() => onSelect(item)}>
-              
+
               <div className={styles.info}>
                 <span className={styles.preview}>
                   {item.preview.length > 30 ? item.preview.substring(0, 30) + '...' : item.preview}
@@ -48,9 +48,9 @@ export function HistorySection({ items, onSelect, onDelete, onClear }: HistorySe
                 <span className={`${styles.badge} ${item.result.category === 'Produtivo' ? styles.produtivo : styles.improdutivo}`}>
                   {item.result.category}
                 </span>
-                
-                <button 
-                  className={styles.deleteBtn} 
+
+                <button
+                  className={styles.deleteBtn}
                   onClick={(e) => onDelete(item.id, e)}
                   title="Excluir item"
                 >

@@ -2,11 +2,13 @@
   background: rgba(30, 41, 59, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1rem;
   backdrop-filter: blur(10px);
-  margin-top: 2rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
   max-height: 400px;
-  overflow-y: auto;
+  min-height: 0;
 }
 
 .header {
@@ -16,10 +18,11 @@
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
 }
 
 .title {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   font-weight: 700;
   color: #94a3b8;
@@ -30,23 +33,42 @@
   background: none;
   border: none;
   color: #ef4444;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   cursor: pointer;
   opacity: 0.7;
 }
-.clearBtn:hover { opacity: 1; text-decoration: underline; }
+.clearBtn:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
 
-/* Lista */
 .list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.65rem;
+}
+
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .empty {
   text-align: center;
   color: #64748b;
-  font-size: 0.85rem;
+  font-size: 0.65rem;
   padding: 1rem;
 }
 
@@ -71,35 +93,46 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  overflow: hidden;
 }
 
 .preview {
   color: #e2e8f0;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .date {
   color: #64748b;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .badge {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
   font-weight: 600;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.produtivo { color: #4ade80; background: rgba(74, 222, 128, 0.1); }
-.improdutivo { color: #f87171; background: rgba(248, 113, 113, 0.1); }
+.produtivo {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+}
+.improdutivo {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
 
 .deleteBtn {
   background: transparent;
@@ -109,6 +142,7 @@
   padding: 4px;
   border-radius: 4px;
   transition: all 0.2s;
+  display: flex;
 }
 
 .deleteBtn:hover {
