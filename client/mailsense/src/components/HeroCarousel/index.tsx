@@ -1,4 +1,3 @@
-// HeroCarousel.tsx
 import { useState, useEffect } from 'react';
 import { ShieldCheck, Zap, BrainCircuit } from 'lucide-react';
 import styles from './styles.module.css';
@@ -12,7 +11,7 @@ const slides = [
         title: "Triagem de Emails em Segundos",
         desc: "Nossa IA lê, entende o contexto e classifica automaticamente emails financeiros, separando o que é urgente do que é spam.",
         icon: <BrainCircuit size={140} />,
-        bgClass: styles.bgBlue, 
+        bgClass: styles.bgBlue,
         features: ["Leitura de Contexto", "Alta Precisão", "Aprendizado Contínuo"]
     },
     {

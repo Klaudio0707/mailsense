@@ -1,21 +1,18 @@
-
 .carouselContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 
   max-width: 1280px;
   width: 100%;
-  min-height: 100vh; 
+  min-height: 100vh;
   margin: 0 auto;
   padding: 0 2rem;
   gap: 4rem;
-  
+
   position: relative;
   z-index: 1;
 }
-
 
 .textSection {
   flex: 1;
@@ -27,7 +24,6 @@
   z-index: 10;
 }
 
-/* Badge (Etiqueta no topo) */
 .badge {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -38,11 +34,10 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #38bdf8; /* Azul claro neon */
+  color: #38bdf8;
   width: fit-content;
 }
 
-/* Títulos */
 .title {
   font-size: 3.5rem;
   line-height: 1.1;
@@ -55,13 +50,12 @@
 
 .description {
   font-size: 1.125rem;
-  color: #94a3b8; /* Cinza azulado */
+  color: #94a3b8;
   line-height: 1.6;
   margin: 0;
   max-width: 90%;
 }
 
-/* Lista de Features */
 .featuresList {
   display: flex;
   flex-wrap: wrap;
@@ -83,10 +77,9 @@
 }
 
 .checkIcon {
-  color: #4ade80; 
+  color: #4ade80;
 }
 
-/* Botão de Ação (CTA) */
 .ctaButton {
   margin-top: 2rem;
   display: inline-flex;
@@ -134,13 +127,12 @@
   box-shadow: 0 0 10px #38bdf8;
 }
 
-/* --- LADO DIREITO: VISUAL 3D --- */
 .visualSection {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1000px; /* Dá profundidade ao 3D */
+  perspective: 1000px;
 }
 
 .card3d {
@@ -159,7 +151,7 @@
 .iconWrapper {
   color: white;
   z-index: 2;
-  filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
 }
 
 .glowEffect {
@@ -168,11 +160,14 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
   transform: rotate(30deg);
   pointer-events: none;
 }
-
 
 .bgBlue {
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
@@ -191,12 +186,10 @@
   .carouselContainer {
     gap: 3rem;
     padding: 0 2rem;
-    /* Em telas menores, a imagem pode ficar menor ou empilhar */
-    justify-content: center; 
+    justify-content: center;
   }
 }
 
-/* Tablet Vertical e Mobile */
 @media (max-width: 900px) {
   .carouselContainer {
     flex-direction: column-reverse;
@@ -205,6 +198,6 @@
     padding-top: 3rem;
     padding-bottom: 3rem;
     gap: 3rem;
-    min-height: auto; /* Deixa a altura livre no mobile */
+    min-height: auto;
   }
 }

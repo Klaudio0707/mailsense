@@ -4,8 +4,8 @@ export default function Footer() {
   return (
     <footer className={styles.footerContainer}>
       <div className={styles.content}>
-        
-   
+
+
         <div className={styles.brandSection}>
           <p className={styles.brandName}>MailSense © 2026</p>
           <p className={styles.tagline}>
@@ -15,7 +15,7 @@ export default function Footer() {
 
         <div className={styles.creditsSection}>
           <p className={styles.devInfo}>
-            Desenvolvido  por 
+            Desenvolvido  por
             <span className={styles.devName}>Cláudio Roberto</span>
           </p>
           <p className={styles.techStack}>

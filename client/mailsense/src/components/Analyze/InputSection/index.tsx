@@ -1,5 +1,6 @@
 import { FileText, Upload, Paperclip, X, Loader2, Sparkles, WifiOff } from 'lucide-react';
 import styles from './styles.module.css';
+import { toast } from 'sonner';
 
 interface InputSectionProps {
     text: string;
@@ -22,7 +23,7 @@ export function InputSection({
 
             if (ext === 'pdf' || ext === 'txt') {
                 setFile(f);
-
+                toast.success('Arquivo anexado com sucesso!');
             }
         }
     };

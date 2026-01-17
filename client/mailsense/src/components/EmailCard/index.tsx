@@ -22,7 +22,6 @@ export default function EmailCard({ data }: EmailCardProps) {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
     
-   
   };
 
   return (

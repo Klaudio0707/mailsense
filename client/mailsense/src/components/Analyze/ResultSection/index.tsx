@@ -1,6 +1,6 @@
 import { Sparkles, Loader2 } from 'lucide-react';
 import styles from './styles.module.css';
-import EmailCard from '../../../components/EmailCard'; // Ajuste o caminho para onde está seu EmailCard
+import EmailCard from '../../../components/EmailCard';
 import type { IAnalysisResult } from '../../../@ITypes/IAnalysisResult';
 
 interface ResultSectionProps {

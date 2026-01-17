@@ -1,9 +1,7 @@
-// HeroImage.tsx
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.css';
 import type { IHeroImageProps } from '../../../@ITypes/IHeromImageProps';
-
 
 export function HeroImage({ slide }: IHeroImageProps) {
     const navigate = useNavigate();

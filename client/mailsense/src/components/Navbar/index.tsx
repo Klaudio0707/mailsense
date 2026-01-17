@@ -4,14 +4,13 @@ import styles from './styles.module.css';
 
 export default function Navbar() {
     const navigate = useNavigate();
-    
+
     return (
         <nav className={styles.navContainer}>
             <div className={styles.content}>
                 <div className={styles.logoBox} onClick={() => navigate('/')}>
                     <div className={styles.logoIcon}>
-                        <Send size={20} strokeWidth={2.5} style={{ marginLeft: '-2px' }} /> 
-                     
+                        <Send size={20} strokeWidth={2.5} style={{ marginLeft: '-2px' }} />
                     </div>
                     <span className={styles.brandName}>
                         MailSense

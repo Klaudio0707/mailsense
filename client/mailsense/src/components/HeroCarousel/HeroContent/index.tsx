@@ -1,4 +1,3 @@
-// HeroContent.tsx
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
