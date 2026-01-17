@@ -106,11 +106,11 @@
   };
 
   const clearHistory = () => {
-    if (confirm("Tem certeza que deseja limpar todo o histórico?")) {
+   toast.success("Apagado com sucesso");
       setHistory([]);
       localStorage.removeItem('@mailsense:history');
       toast.success("Histórico limpo.");
-    }
+  
   };
 
   const handleSubmit = async () => {
