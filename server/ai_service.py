@@ -23,33 +23,37 @@ def analyze_email(text):
             model = genai.GenerativeModel('gemini-flash-latest')
 
     prompt = f"""
-    CONTEXTO:
-    Você é um Assistente de Email Corporativo Inteligente.
-    Recebemos o seguinte email e precisamos triá-lo e gerar um rascunho de resposta.
-    
+    Você é um assistente de triagem de emails para uma empresa financeira.
+    Sua tarefa é ler o email abaixo e classificá-lo estritamente de acordo com as regras do desafio.
+
     EMAIL RECEBIDO:
     "{text}"
-    
-    TAREFA 1: CLASSIFICAÇÃO ("category")
-    - "Produtivo": Se o email for legítimo e exigir atenção, resposta ou ação da nossa parte (ex: dúvidas de clientes, solicitações de suporte, contatos comerciais, boletos, problemas operacionais).
-    - "Improdutivo": Se o email for descartável (ex: SPAM, promoções não solicitadas, tentativas de golpe/phishing, newsletters automáticas).
 
-    TAREFA 2: RESPOSTA AO REMETENTE ("reply")
-    - Escreva o rascunho da resposta que NÓS enviaremos de volta para quem mandou o email.
-    - Tom de voz: Profissional, educado e direto.
-    - Se o email for "Improdutivo", a resposta pode ser apenas uma justificativa interna (ex: "Email promocional descartado").
+    --------------------------
+    REGRAS DE CLASSIFICAÇÃO ("category"):
     
-    REGRA DE OURO (PERSONA):
-    - Atenção: O nome que aparece na saudação do email recebido (ex: "Olá Claudio") é o NOSSO nome. NÃO use esse nome para cumprimentar na resposta.
-    - Cumprimente o remetente. Se não souber o nome, use "Prezado(a)".
+    1. PRODUTIVO (Requer ação/trabalho):
+       - O email solicita um status, um arquivo, suporte técnico ou tira uma dúvida.
+       - Exemplos: "Cadê o boleto?", "O sistema caiu", "Preciso do relatório", "Qual o status da requisição?".
     
-    FORMATO JSON OBRIGATÓRIO:
+    2. IMPRODUTIVO (Não requer ação/trabalho):
+       - Mensagens puramente sociais, agradecimentos, felicitações ou spam.
+       - Exemplos: "Feliz Natal", "Muito obrigado", "Bom final de semana", "Promoção imperdível".
+
+    --------------------------
+    REGRAS DE RESPOSTA ("reply"):
+    
+    - Se PRODUTIVO: Escreva uma resposta profissional confirmando que a solicitação foi recebida e será tratada.
+    - Se IMPRODUTIVO (Social): Agradeça a gentileza de forma breve e encerre.
+    - Se IMPRODUTIVO (Spam/Irrelevante): A resposta deve ser apenas "Nenhuma resposta necessária".
+
+    --------------------------
+    SAÍDA ESPERADA (JSON):
+    Responda APENAS com um JSON válido neste formato, sem crases ou markdown:
     {{
         "category": "Produtivo" ou "Improdutivo",
-        "reply": "O texto da sua resposta aqui."
+        "reply": "Texto da sugestão de resposta"
     }}
-    
-    Responda APENAS o JSON válido.
     """
     try:
         response = model.generate_content(prompt)

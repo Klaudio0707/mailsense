@@ -5,7 +5,6 @@ from PyPDF2 import PdfReader
 from ai_service import analyze_email
 
 app = Flask(__name__)
-# Habilita CORS para o Frontend (React) conseguir falar com o Backend
 CORS(app) 
 
 def extract_text_from_pdf(file):
@@ -34,7 +33,6 @@ def analyze():
     if 'email_text' in request.form:
         final_content += request.form['email_text'] + "\n\n"
 
-    # (PDF ou TXT)
     if 'file' in request.files:
         file = request.files['file']
         filename = file.filename.lower()
@@ -52,7 +50,7 @@ def analyze():
         return jsonify({"error": "Nenhum conteúdo de texto ou arquivo válido fornecido."}), 400
 
     try:
-        # Chama a IA
+        # IA
         result = analyze_email(final_content)
         return jsonify(result)
     except Exception as e:

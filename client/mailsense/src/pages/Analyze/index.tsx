@@ -1,31 +1,29 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff, CheckSquareIcon } from 'lucide-react';
-import { emailService } from '../../services/api';
-import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
-import styles from './styles.module.css';
-import { toast } from 'sonner'; 
-import { InputSection } from '../../components/Analyze/InputSection';
-import { ResultSection } from '../../components/Analyze/ResultSection';
-import { HistorySection, type IHistoryItem } from '../../components/HistorySection';
+  import { useState, useEffect, useRef } from 'react';
+  import { useNavigate } from 'react-router-dom';
+  import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff, CheckSquareIcon } from 'lucide-react';
+  import { emailService } from '../../services/api';
+  import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
+  import styles from './styles.module.css';
+  import { toast } from 'sonner'; 
+  import { InputSection } from '../../components/Analyze/InputSection';
+  import { ResultSection } from '../../components/Analyze/ResultSection';
+  import { HistorySection, type IHistoryItem } from '../../components/HistorySection';
 
-type ServerStatus = 'checking' | 'online' | 'offline' | 'waking-up';
+  const MIN_CHARS = 10;
+  const MAX_CHARS = 5000; 
+  const MAX_FILE_SIZE_MB = 1;
 
-const MIN_CHARS = 10;
-const MAX_CHARS = 5000; 
-const MAX_FILE_SIZE_MB = 1;
-
-export default function Analyze() {
-  const navigate = useNavigate();
-  
-  const [text, setText] = useState('');
-  const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<IAnalysisResult | null>(null);
-  const [serverStatus, setServerStatus] = useState<ServerStatus>('checking');
-  const [history, setHistory] = useState<IHistoryItem[]>([]);
-  
-  const isFirstLoad = useRef(true);
+  export default function Analyze() {
+    const navigate = useNavigate();
+    
+    const [text, setText] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<IAnalysisResult | null>(null);
+    const [serverStatus, setServerStatus] = useState<'checking' | 'online' | 'waking-up' | 'offline'>('checking');
+    const [history, setHistory] = useState<IHistoryItem[]>([]);
+    
+    const isFirstLoad = useRef(true);
   
   useEffect(() => {
     let isMounted = true;
@@ -46,7 +44,7 @@ export default function Analyze() {
       if (!isMounted) return;
       
       if (isOnline) {
-        setServerStatus((prevStatus) => {
+        setServerStatus((prevStatus: string) => {
           if (prevStatus !== 'online' && !isFirstLoad.current) {
             toast.success("Conexão restabelecida!", { icon: <CheckSquareIcon /> });
           }
@@ -55,7 +53,7 @@ export default function Analyze() {
         timeoutId = setTimeout(monitorServer, 30000);
       } 
       else {
-        setServerStatus((prevStatus) => {
+        setServerStatus((prevStatus: string) => {
           if (prevStatus === 'online') {
             toast.error("Conexão perdida. Tentando reconectar...");
           }

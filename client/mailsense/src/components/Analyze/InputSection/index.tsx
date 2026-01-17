@@ -40,9 +40,7 @@ export function InputSection({
                 value={text}
                 onChange={e => setText(e.target.value)}
             />
-
             <div className={styles.separator}><span>ou</span></div>
-
             {serverOnline ? (
                 <>
                     <div className={styles.fileUploadBox} onClick={() => document.getElementById('file-upload')?.click()}>
@@ -72,7 +70,6 @@ export function InputSection({
                             </div>
                         )}
                     </div>
-
                     <button
                         className={styles.submitBtn}
                         onClick={onSubmit}

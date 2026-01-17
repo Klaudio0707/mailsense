@@ -9,7 +9,6 @@ interface ResultSectionProps {
 }
 
 export function ResultSection({ result, loading }: ResultSectionProps) {
-  
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -19,7 +18,6 @@ export function ResultSection({ result, loading }: ResultSectionProps) {
       </div>
     );
   }
-
   if (!result) {
     return (
       <div className={styles.emptyContainer}>
@@ -29,7 +27,6 @@ export function ResultSection({ result, loading }: ResultSectionProps) {
       </div>
     );
   }
-
   return (
     <div className={styles.resultWrapper}>
       <EmailCard data={result} />

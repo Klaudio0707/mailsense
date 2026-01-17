@@ -6,7 +6,6 @@ import type { IHeroContentProps } from '../../../@ITypes/IHeroContentProps';
 
 export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHeroContentProps) {
   const navigate = useNavigate();
-
   return (
     <div className={styles.textSection}>
       <AnimatePresence mode="wait">
@@ -20,7 +19,6 @@ export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHer
           <span className={styles.badge}>{slide.badge}</span>
           <h1 className={styles.title}>{slide.title}</h1>
           <p className={styles.description}>{slide.desc}</p>
-
           <div className={styles.featuresList}>
             {slide.features.map((feat: string, i: number) => (
               <div key={i} className={styles.featureItem}>
@@ -30,7 +28,6 @@ export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHer
           </div>
         </motion.div>
       </AnimatePresence>
-
       <div className={styles.indicatorsBox}>
         {Array.from({ length: totalSlides }).map((_, i) => (
           <div
@@ -40,7 +37,6 @@ export function HeroContent({ slide, currentIndex, totalSlides, setIndex }: IHer
           />
         ))}
       </div>
-
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
