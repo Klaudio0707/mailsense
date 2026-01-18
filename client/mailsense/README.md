@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
+# 💻 MailSense - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web desenvolvida com **React 19**, **TypeScript** e **Vite**. Focada em performance, acessibilidade e feedback visual imediato para o usuário.
 
-Currently, two official plugins are available:
+## 📦 Stack e Bibliotecas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Baseado no `package.json`, as principais dependências são:
 
-## React Compiler
+| Biblioteca | Versão | Função Principal |
+| :--- | :--- | :--- |
+| **React** | `^19.2.0` | Core da interface (SPA). |
+| **Vite** | `^7.2.4` | Bundler e servidor de desenvolvimento ultrarrápido. |
+| **TypeScript** | `~5.9.3` | Tipagem estática para segurança de código. |
+| **React Router** | `^7.12.0` | Gerenciamento de rotas e navegação. |
+| **Axios** | `^1.13.2` | Requisições HTTP e comunicação com a API. |
+| **Sonner** | `^2.0.7` | Sistema de Toasts (notificações) com suporte a ações (Undo). |
+| **Framer Motion**| `^12.26.2`| Animações de entrada e saída de elementos. |
+| **Lucide React** | `^0.562.0` | Ícones leves e modernos. |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Instalação e Execução
 
-## Expanding the ESLint configuration
+Certifique-se de estar na pasta `client/mailsense`.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Instalar Dependências
+```bash
+npm install
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+npm run dev
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Crie um arquivo .env na raiz desta pasta se precisar alterar a URL da API:
+VITE_RENDER_URL_API="http://localhost:5000"

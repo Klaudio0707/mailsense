@@ -1,13 +1,15 @@
-# 📧 MailSense - Inteligência Artificial para Triagem de Emails
+# 📧 MailSense - Triagem Inteligente de E-mails
 
-![Status](https://img.shields.io/badge/Status-Concluído-success)
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![React](https://img.shields.io/badge/React-Vite-61DAFB)
-![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-8E75B2)
+> **Desafio:** Combater a sobrecarga de informações no ambiente corporativo através de classificação automática e sugestão de respostas.
 
-> Solução desenvolvida para o Desafio de Automação e IA (AutoU).
+![Status do Projeto](https://img.shields.io/badge/Status-Concluído-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
-O **MailSense** é uma aplicação web Full Stack que utiliza Inteligência Artificial Generativa (LLM) para automatizar a leitura, classificação e resposta de emails corporativos, otimizando o tempo de equipes operacionais.
+## 🎯 O Problema e a Solução
+O volume excessivo de e-mails irrelevantes ou mal estruturados consome horas produtivas das equipes. O **MailSense** atua como um assistente de triagem que utiliza Inteligência Artificial para:
+1.  **Ler** o conteúdo (texto ou arquivos anexados).
+2.  **Classificar** como *Produtivo* (gera valor/ação) ou *Improdutivo* (ruído).
+3.  **Sugerir** uma resposta ou ação imediata.
 
 ---
 
@@ -33,16 +35,23 @@ O **MailSense** é uma aplicação web Full Stack que utiliza Inteligência Arti
 
 Para este desafio, optei por uma arquitetura moderna focada em escalabilidade e precisão semântica.
 
-| Camada | Tecnologia | Motivo da Escolha |
-| :--- | :--- | :--- |
-| **Frontend** | React + Vite | Performance superior, componentização e feedback visual instantâneo para o usuário. |
-| **Backend** | Python (Flask) | Robustez e facilidade de integração com bibliotecas de IA. |
-| **Servidor** | Gunicorn | Servidor WSGI de produção para garantir estabilidade no deploy (ao contrário do servidor de desenvolvimento padrão). |
-| **IA / NLP** | **Google Gemini** | **Decisão Estratégica:** Ao invés de usar NLP tradicional (Stemming/Stopwords), optei por **LLMs**. Modelos generativos entendem *nuance* e *sarcasmo* melhor que contagem de palavras, garantindo maior acurácia na classificação. |
-| **Cloud** | Render | Hospedagem contínua com suporte a containers e SSL nativo. |
+### Backend (Server)
+* **Python 3.10+**
+* **Flask:** Framework web leve para criação da API RESTful.
+* **Google Generative AI:** Integração com modelos LLM (Gemini) para análise semântica e geração de respostas.
+* **PyPDF2:** Biblioteca para extração e manipulação de texto em arquivos PDF.
+* **Flask-CORS:** Gerenciamento de Cross-Origin Resource Sharing para segurança da API.
+* **Gunicorn:** Servidor WSGI robusto para execução em ambiente de produção.
+* **Python-dotenv:** Gerenciamento seguro de variáveis de ambiente (.env).
+
+### Frontend (Client)
+* **React 19 + TypeScript:** Interface reativa e tipada.
+* **Vite:** Build tool.
+* **Sonner:** Notificações (Toasts) inteligentes.
+* **Axios:** Cliente HTTP para comunicação com o Flask.
 
 ### Destaque Técnico: Modo JSON e Segurança
-A integração com o Gemini utiliza o **JSON Mode** nativo e validação de esquema, garantindo que a saída da IA seja sempre estruturada e integrável ao Front-end, prevenindo erros de formatação comuns em LLMs.
+A integração utiliza o JSON Mode nativo do Gemini no Backend. Isso força a IA a gerar saídas estritamente estruturadas, eliminando a necessidade de tratamento de strings complexo (RegEx) e garantindo que o Frontend receba dados limpos e prontos para renderização, prevenindo erros de parser.
 
 ---
 
@@ -51,9 +60,9 @@ A integração com o Gemini utiliza o **JSON Mode** nativo e validação de esqu
 Siga os passos abaixo para executar o projeto na sua máquina.
 
 ### Pré-requisitos
-- Python 3.10+
-- Node.js e NPM
-- Uma API Key do Google Gemini
+* Node.js (v18+)
+* Python (v3.10+)
+* API Key do Google AI Studio (Gemini).
 
 ### 1. Configuração do Backend
 
@@ -62,24 +71,28 @@ Siga os passos abaixo para executar o projeto na sua máquina.
 git clone [https://github.com/Klaudio0707/Desafio---Verificador-de-Email.git](https://github.com/Klaudio0707/Desafio---Verificador-de-Email.git)
 cd server
 
-# Crie um ambiente virtual
-python -m venv venv
+2.  **Configure o Backend:**
+    Crie um arquivo `.env` na pasta `server` com sua chave:
+    ```env
+    GOOGLE_API_KEY="sua-chave-aqui"
+    ```
 
-# Ative o ambiente
-# No Windows:
-venv\Scripts\activate
-# No Linux/Mac:
-source venv/bin/activate
+    Instale as dependências e rode o servidor:
+    ```bash
+    cd server
+    pip install -r requirements.txt
+    python app.py
+    # Ou para produção: gunicorn app:app
+    ```
 
-# Instale as dependências
-pip install -r requirements.txt
+3.  **Configure o Frontend (em outro terminal):**
+    ```bash
+    cd client/mailsense
+    npm install
+    npm run dev
+    ```
 
-# Crie o arquivo .env na raiz e adicione sua chave
-# GOOGLE_API_KEY="Sua_Chave_Aqui"
-
-# Rode o servidor
-flask run
-# O servidor iniciará em http://localhost:5000
+Acesse a aplicação em: `http://localhost:5173`
 
 ## 🧪 Como Testar
 
@@ -90,6 +103,12 @@ flask run
     * Tente enviar uma receita de bolo ou spam -> Deve retornar **Improdutivo**.
 
 ---
+## 🧠 Decisões Técnicas
+
+* **IA do Google (Generative AI):** Escolhida pela alta capacidade de contexto e precisão na língua portuguesa para tarefas de resumo e classificação.
+* **Processamento de PDF no Backend:** Optou-se por usar `PyPDF2` no servidor (em vez de no navegador) para garantir que o texto extraído seja limpo e formatado corretamente antes de ser enviado para a IA, economizando tokens.
+* **Arquitetura Flask + Gunicorn:** Garante que a aplicação possa escalar e lidar com múltiplas requisições simultâneas de forma estável.
+
 
 ## 📞 Contato
 
