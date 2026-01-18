@@ -1,16 +1,7 @@
 import { FileText, Upload, Paperclip, X, Loader2, Sparkles, WifiOff } from 'lucide-react';
 import styles from './styles.module.css';
 import { toast } from 'sonner';
-
-interface InputSectionProps {
-    text: string;
-    setText: (t: string) => void;
-    file: File | null;
-    setFile: (f: File | null) => void;
-    loading: boolean;
-    serverOnline: boolean;
-    onSubmit: () => void;
-}
+import type { InputSectionProps } from '../../../@ITypes/IInputSectionProps';
 
 export function InputSection({
     text, setText, file, setFile, loading, serverOnline, onSubmit
@@ -32,7 +23,7 @@ export function InputSection({
         <div className={styles.card}>
             <div className={styles.cardHeader}>
                 <FileText size={18} color="#6366f1" />
-                Entrada de Dados
+                <h3 >Entrada de Email</h3>
             </div>
             <textarea
                 className={styles.textArea}

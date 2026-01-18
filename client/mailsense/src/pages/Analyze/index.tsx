@@ -1,30 +1,30 @@
-  import { useState, useEffect, useRef } from 'react';
-  import { useNavigate } from 'react-router-dom';
-  import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff, CheckSquareIcon } from 'lucide-react';
-  import { emailService } from '../../services/api';
-  import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
-  import styles from './styles.module.css';
-  import { toast } from 'sonner'; 
-  import { InputSection } from '../../components/Analyze/InputSection';
-  import { ResultSection } from '../../components/Analyze/ResultSection';
-  import { HistorySection, type IHistoryItem } from '../../components/HistorySection';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Sparkles, Loader2, ArrowLeft, CheckCircle2, AlarmClock, WifiOff, CheckSquareIcon } from 'lucide-react';
+import { emailService } from '../../services/api';
+import type { IAnalysisResult } from '../../@ITypes/IAnalysisResult';
+import styles from './styles.module.css';
+import { toast } from 'sonner';
+import { InputSection } from '../../components/Analyze/InputSection';
+import { ResultSection } from '../../components/Analyze/ResultSection';
+import { HistorySection, type IHistoryItem } from '../../components/HistorySection';
 
-  const MIN_CHARS = 10;
-  const MAX_CHARS = 5000; 
-  const MAX_FILE_SIZE_MB = 1;
+const MIN_CHARS = 10;
+const MAX_CHARS = 5000;
+const MAX_FILE_SIZE_MB = 1;
 
-  export default function Analyze() {
-    const navigate = useNavigate();
-    
-    const [text, setText] = useState('');
-    const [file, setFile] = useState<File | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<IAnalysisResult | null>(null);
-    const [serverStatus, setServerStatus] = useState<'checking' | 'online' | 'waking-up' | 'offline'>('checking');
-    const [history, setHistory] = useState<IHistoryItem[]>([]);
-    
-    const isFirstLoad = useRef(true);
-  
+export default function Analyze() {
+  const navigate = useNavigate();
+
+  const [text, setText] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<IAnalysisResult | null>(null);
+  const [serverStatus, setServerStatus] = useState<'checking' | 'online' | 'waking-up' | 'offline'>('checking');
+  const [history, setHistory] = useState<IHistoryItem[]>([]);
+
+  const isFirstLoad = useRef(true);
+
   useEffect(() => {
     let isMounted = true;
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -40,9 +40,8 @@
 
     const monitorServer = async () => {
       const isOnline = await emailService.checkHealth();
-      
       if (!isMounted) return;
-      
+
       if (isOnline) {
         setServerStatus((prevStatus: string) => {
           if (prevStatus !== 'online' && !isFirstLoad.current) {
@@ -51,7 +50,7 @@
           return 'online';
         });
         timeoutId = setTimeout(monitorServer, 30000);
-      } 
+      }
       else {
         setServerStatus((prevStatus: string) => {
           if (prevStatus === 'online') {
@@ -59,17 +58,13 @@
           }
           return isFirstLoad.current ? 'waking-up' : 'offline';
         });
-
         if (isFirstLoad.current) {
-            toast.warning("Acordando o servidor...");
+          toast.warning("Acordando o servidor...");
         }
-
         timeoutId = setTimeout(monitorServer, 4000);
       }
-
       isFirstLoad.current = false;
     };
-
     monitorServer();
 
     return () => {
@@ -83,16 +78,12 @@
     setHistory(updatedHistory);
     localStorage.setItem('@mailsense:history', JSON.stringify(updatedHistory));
   };
-
   const deleteFromHistory = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation(); 
-    
+    e.stopPropagation();
     const previousHistory = [...history];
     const updatedHistory = history.filter(item => item.id !== id);
-    
     setHistory(updatedHistory);
     localStorage.setItem('@mailsense:history', JSON.stringify(updatedHistory));
-
     toast.success("Item removido.", {
       action: {
         label: 'Desfazer',
@@ -104,15 +95,12 @@
       duration: 4000,
     });
   };
-
   const clearHistory = () => {
-   toast.success("Apagado com sucesso");
-      setHistory([]);
-      localStorage.removeItem('@mailsense:history');
-      toast.success("Histórico limpo.");
-  
+    toast.success("Apagado com sucesso");
+    setHistory([]);
+    localStorage.removeItem('@mailsense:history');
+    toast.success("Histórico limpo.");
   };
-
   const handleSubmit = async () => {
     if (!file) {
       if (!text.trim()) {
@@ -124,12 +112,10 @@
         return;
       }
     }
-
     if (text.length > MAX_CHARS) {
-        toast.error(`Texto muito longo. O limite é ${MAX_CHARS} caracteres.`);
-        return;
+      toast.error(`Texto muito longo. O limite é ${MAX_CHARS} caracteres.`);
+      return;
     }
-
     if (file) {
       const fileSizeMB = file.size / (1024 * 1024);
       if (fileSizeMB > MAX_FILE_SIZE_MB) {
@@ -137,14 +123,12 @@
         return;
       }
     }
-
     setLoading(true);
     setResult(null);
-    
     try {
       const data = await emailService.analyze(text, file);
       setResult(data);
-      
+
       const newItem: IHistoryItem = {
         id: crypto.randomUUID(),
         timestamp: Date.now(),
@@ -152,13 +136,11 @@
         preview: file ? `Arquivo: ${file.name}` : text,
         result: data
       };
-
       saveToHistory(newItem);
-
       if (data.category === 'Produtivo') {
-       toast.success("Email classificado como PRODUTIVO.");
+        toast.success("Email classificado como PRODUTIVO.");
       } else {
-       toast.warning("Email classificado como IMPRODUTIVO.");
+        toast.warning("Email classificado como IMPRODUTIVO.");
       }
     } catch (error) {
       console.error(error);
@@ -167,14 +149,13 @@
       setLoading(false);
     }
   };
-
   return (
     <div className={styles.pageContainer}>
       <div className={styles.contentWrapper}>
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             <button onClick={() => navigate('/')} className={styles.backButton}>
-              <ArrowLeft size={18}/> Voltar
+              <ArrowLeft size={18} /> Voltar
             </button>
             <h2 className={styles.title}><Sparkles size={30} color="#6366f1" /> Análise Inteligente</h2>
             <p className={styles.subtitle}>Cole o email ou anexe um arquivo para análise.</p>
@@ -198,7 +179,7 @@
         </header>
         <main className={styles.mainGrid}>
           <div className={styles.leftColumn}>
-            <InputSection 
+            <InputSection
               text={text}
               setText={setText}
               file={file}
@@ -209,11 +190,11 @@
             />
 
             <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.5rem', textAlign: 'right' }}>
-               {text.length > 0 && <span>{text.length} / {MAX_CHARS} caracteres</span>}
+              {text.length > 0 && <span>{text.length} / {MAX_CHARS} caracteres</span>}
             </div>
-            <HistorySection 
+            <HistorySection
               items={history}
-              onSelect={(item: { result:IAnalysisResult }) => {
+              onSelect={(item: { result: IAnalysisResult }) => {
                 setResult(item.result);
                 toast.info("Resultado carregado do histórico.");
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -222,7 +203,7 @@
               onClear={clearHistory}
             />
           </div>
-          <ResultSection result={result} loading={loading}/>
+          <ResultSection result={result} loading={loading} />
         </main>
       </div>
     </div>

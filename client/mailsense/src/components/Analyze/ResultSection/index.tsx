@@ -1,14 +1,10 @@
 import { Sparkles, Loader2 } from 'lucide-react';
 import styles from './styles.module.css';
 import EmailCard from '../../../components/EmailCard';
-import type { IAnalysisResult } from '../../../@ITypes/IAnalysisResult';
+import type { IResultSectionProps } from '../../../@ITypes/IResulttSectionProps';
 
-interface ResultSectionProps {
-  result: IAnalysisResult | null;
-  loading: boolean;
-}
 
-export function ResultSection({ result, loading }: ResultSectionProps) {
+export function ResultSection({ result, loading }: IResultSectionProps) {
   if (loading) {
     return (
       <div className={styles.loadingContainer}>

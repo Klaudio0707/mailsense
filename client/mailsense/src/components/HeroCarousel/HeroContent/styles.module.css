@@ -10,7 +10,6 @@
   padding: 1rem 0;
 }
 
-/* --- BADGE (Etiqueta de Categoria) --- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -28,7 +27,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* --- TÍTULO PRINCIPAL --- */
 .title {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 4rem; 
@@ -43,7 +41,6 @@
   text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-/* --- DESCRIÇÃO --- */
 .description {
   font-size: 1.125rem;
   line-height: 1.7;
@@ -53,7 +50,6 @@
   font-weight: 400;
 }
 
-/* --- LISTA DE FEATURES (Tags) --- */
 .featuresList {
   display: flex;
   flex-wrap: wrap;
@@ -70,11 +66,10 @@
   font-weight: 500;
   color: #e2e8f0;
   
-  /* Fundo escuro sutil */
   background: rgba(30, 41, 59, 0.6);
   padding: 0.6rem 1rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08); /* Borda quase invisível */
+  border: 1px solid rgba(255, 255, 255, 0.08); 
   
   transition: border-color 0.2s;
 }
@@ -85,10 +80,9 @@
 
 .checkIcon {
   color: #4ade80;
-  min-width: 18px; /* Evita que o ícone esmague */
+  min-width: 18px;
 }
 
-/* --- BOTÃO CTA (Primary) --- */
 .ctaButton {
   margin-top: 1rem;
   display: inline-flex;
@@ -104,7 +98,6 @@
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  /* Glow Effect azul */
   box-shadow: 0 0 0 1px rgba(37, 99, 235, 1), 0 8px 20px -6px rgba(37, 99, 235, 0.6);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -119,7 +112,6 @@
   transform: translateY(0);
 }
 
-/* --- INDICADORES (Dots) --- */
 .indicatorsBox {
   display: flex;
   align-items: center;
@@ -145,7 +137,6 @@
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
 }
 
-/* --- RESPONSIVIDADE --- */
 @media (max-width: 1024px) {
   .title { font-size: 3rem; }
   .textSection { max-width: 100%; }
@@ -166,7 +157,7 @@
   }
   
   .ctaButton {
-    width: 100%; /* Botão full width no celular */
+    width: 100%; 
     justify-content: center;
   }
 
