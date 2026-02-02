@@ -16,7 +16,7 @@ O volume excessivo de e-mails irrelevantes ou mal estruturados consome horas pro
 ## 🔗 Links do Projeto
 
 - **🌐 Aplicação Online (Deploy):** [CLIQUE AQUI PARA ACESSAR](https://mailsense-ai.vercel.app/)
-- **🎬 Vídeo de Demonstração:** [ASSISTIR NO YOUTUBE](https://www.youtube.com/watch?v=-0psl0SsqLA)
+- **🎬 Vídeo de Demonstração:** [ASSISTIR NO YOUTUBE]()
 
 ---
 
